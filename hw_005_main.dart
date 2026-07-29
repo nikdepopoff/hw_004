@@ -12,5 +12,22 @@ print('------------------------------------')
 
   lib.addBook(book1);
   lib.addBook(book2);
-  lib.displayInfo();
+
+  lib.showInfo();
+
+  Book book3 = Book('Le Petit Prince');
+  Book book4 = Book.withRating('Madame Bovary', 9.8);
+  Book book5 = Book('A la recherche du temps perdu');
+  book5.rating = 9.1;
+
+  Library cityLib = Library('City Library');
+
+cityLib.addBook(book3);
+cityLib.addBook(book4);
+cityLib.addBook(book5);
+
+cityLib.showInfo();
+
+print('total books in library: $cityLib.Length'); 
+
 }
