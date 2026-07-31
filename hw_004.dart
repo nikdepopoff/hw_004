@@ -1,53 +1,64 @@
-int totalCalls = 0;
-void main() {
-  for (int i = 0; i < 3; i++) {
-    greet();
+enum Color {
+  red('\x1B[31m'),
+  yellow('\x1B[33m'),
+  darkGreen('\x1B[32m');
+
+  final String code;
+
+  const Color(this.code);
+}
+
+class Animal {
+  static int _counter = 0;
+
+  static void displayCounter() {
+    print('Animal class produced $_counter objects.');
   }
-  ;
-  print('-----------------------');
 
-  introduce('Denis', 24);
-  introduce('Matt', 29);
-  introduce('Alex', 25);
+  Color color;
+  int? age;
 
-  print('-----------------------');
-
-  int b = addNumbers(5, 8);
-  print('Sum of 5 and 8 is $b');
-
-  print('-----------------------');
-
-  double result = calculateDiscount(price: 200);
-  double result1 = calculateDiscount(price: 180, discount: 30);
-  double result2 = calculateDiscount(price: 220, discount: 10, tax: 40);
-  print('Final price: $result');
-  print('Final price: $result1');
-  print('Final price: $result2');
-
-  print('Total function calls: $totalCalls');
+  Animal(this.color, this.age) {
+    _counter++;
+  }
+  String info() {
+    return 'COLOR: ${color.code}${color.name}\x1B[0m, AGE: $age';
+  }
 }
 
-void greet() {
-  print('Hello! Welcome to Dart programing!');
-  totalCalls++;
+class Cat extends Animal {
+  Cat(super.color, super.age);
+
+  void meow() {
+    print('cat says meow');
+  }
 }
 
-void introduce(String name, int age) {
-  print('My name is $name and I am $age years old');
-  totalCalls++;
+class Dog extends Animal {
+  String commands;
+  Dog(super.color, super.age, this.commands);
+
+  void bark() {
+    print('dog says woof');
+  }
+
+  @override
+  String info() {
+    return '${super.info()} COMMANDS: $commands';
+  }
 }
 
-int addNumbers(int a, int b) {
-  totalCalls++;
-  return a + b;
-}
+class FightingDog extends Dog {
+  int wins;
 
-double calculateDiscount({
-  required double price,
-  double discount = 0,
-  double tax = 0,
-}) {
-  totalCalls++;
-  double finalPrice = price - (price * discount / 100) + (price * tax / 100);
-  return finalPrice;
+  FightingDog(super.color, super.age, super.commands, this.wins);
+
+  void fight() {
+    print('${color.name} dog is fighting');
+  }
+
+  @override
+  String info() {
+    return '${super.info()} WINS: $wins';
+  }
 }
